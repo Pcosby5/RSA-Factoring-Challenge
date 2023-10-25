@@ -1,0 +1,37 @@
+#!/usr/bin/python3
+
+import sys
+
+
+def factor(line):
+    #convert line to an integer
+    digit = int(line)
+    value = 0
+    #if the number < 4, no need factorizing
+    if digit < 4:
+        print("{:d}={:d}*1".format(digit, digit))
+        return
+    #Loop through possible divisors starting from 2
+    for i in range(2, digit):
+        if digit % i == 0:
+            value = digit // i
+            break
+    #print the result after factorizing
+    print("{:d}={:d}*{:d}".format(digit, value, i))
+
+
+if len(sys.argv) != 2:
+    print("Usage: factors <file>")
+    sys.exit()
+filename = sys.argv[1]
+try:
+    test = open(filename, "r")
+except FileNotFoundError:
+    print("Error: Can't open file <{:s}>".format(filename))
+    sys.exit()
+
+#process each line in the input file
+for line in test:
+    factor(line)
+
+test.close()
