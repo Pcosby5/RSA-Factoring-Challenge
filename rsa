@@ -1,0 +1,31 @@
+#!/usr/bin/python3
+
+import sys
+
+
+def factor(line):
+    digit = int(line)
+    value = 0
+    if digit < 4:
+        print("{:d}={:d}*1".format(digit, digit))
+        return
+    for count in range(2, digit):
+        if digit % count == 0:
+            value = digit // count
+            break
+    print("{:d}={:d}*{:d}".format(digit, value, count))
+
+
+if len(sys.argv) != 2:
+    print("Usage: factors <file>")
+    sys.exit()
+filename = sys.argv[1]
+try:
+    test = open(filename, "r")
+except FileNotFoundError:
+    print("Error: Can't open file <{:s}>".format(filename))
+    sys.exit()
+line = test.read()
+factor(line)
+
+test.close()
